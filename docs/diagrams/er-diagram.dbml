@@ -1,0 +1,46 @@
+Table users {
+  user_id int [pk, increment]
+  name varchar
+  email varchar [unique]
+  password varchar
+  role varchar
+}
+
+Table hospitals {
+  hospital_id int [pk, increment]
+  hospital_name varchar
+  location varchar
+  contact_number varchar
+}
+
+Table wards {
+  ward_id int [pk, increment]
+  hospital_id int [ref: > hospitals.hospital_id]
+  ward_name varchar
+  ward_type varchar
+}
+
+Table beds {
+  bed_id int [pk, increment]
+  ward_id int [ref: > wards.ward_id]
+  bed_number varchar
+  bed_type varchar
+  status varchar
+}
+
+Table bed_status {
+  status_id int [pk, increment]
+  bed_id int [ref: > beds.bed_id]
+  status varchar
+  updated_at datetime
+}
+
+Table bed_updates {
+  update_id int [pk, increment]
+  bed_id int [ref: > beds.bed_id]
+  user_id int [ref: > users.user_id]
+  old_status varchar
+  new_status varchar
+  updated_at datetime
+}
+
